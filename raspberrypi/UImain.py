@@ -6,9 +6,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QPushBu
 import pymysql
 #from pyqt5_plugins.examplebuttonplugin import QtGui
 
-mylocalhost = '192.168.11.91'
-myuser = 'pi'
-mypasswd = '1234'
+mylocalhost = ''
+myuser = ''
+mypasswd = ''
 mydb = 'jangba_db'
 
 wait_form_class = uic.loadUiType("/home/pi/work/UI/ui/waitPro.ui")[0]
