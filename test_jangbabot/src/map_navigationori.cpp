@@ -1,27 +1,12 @@
-#include <iostream>
-#include <unistd.h>
 #include <ros/ros.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
-#include "std_msgs/String.h"
-#include "std_msgs/Int32.h"
-#include <string>
-
-using namespace std;
-
-#define UIMODE		1
-#define AUTOMODE	2
-
-int mode = UIMODE;
-char order[100];
 
 /** function declarations **/
 bool moveToGoal(double xGoal, double yGoal, double zGoal, double wGoal);
-void startAuto(int num, char* orderlist);
+char choose();
 
 /** declare the coordinates of interest **/
-
-ros::Publisher mode_pub;
 
 struct Pos{
 
@@ -38,85 +23,46 @@ struct Pos pos3 = {3.09, -1.95, -0.96, 0.26};
 struct Pos pos4 = {3.28, -1.27, 0.29, 0.95};
 
 bool goalReached = false;
-/*
-void modeCallback(const std_msgs::Int32::ConstPtr& msg){
-	ROS_INFO("mode: [%d]", msg->data);
-	mode = msg->data;
-	cout<< mode << '\n';
-}
-*/
-void autoCallback(const std_msgs::String::ConstPtr& msg){
-        ROS_INFO("list order: [%s]", msg->data.c_str());
-	mode = AUTOMODE;
-
-	int ordernum = strlen(msg->data.c_str());
-	cout << "ordernum: " << ordernum << '\n';
-	strcpy(order, msg->data.c_str());
-	cout << order << '\n';
-	startAuto(ordernum, order);
-
-
-}
-
-void startAuto(int num, char* orderlist){
-	for(int i = 0; i < num; i++){
-		char section = orderlist[i];
-
-		cout << section << "구역 이동 시작" << '\n';
-		if(section == '1'){
-			goalReached = moveToGoal(pos1.x, pos1.y, pos1.z, pos1.w);
-                }
-		else if (section == '2'){
-			goalReached = moveToGoal(pos2.x, pos2.y, pos2.z, pos2.w);
-		}
-		else if (section == '3'){
-			goalReached = moveToGoal(pos3.x, pos3.y, pos3.z, pos3.w);
-		}
-		else if (section == '4'){
-			goalReached = moveToGoal(pos4.x, pos4.y, pos4.z, pos4.w);
-		}
-
-		if (goalReached){
-			ROS_INFO(":) success!!!");
-		}
-		else{
-			ROS_INFO(":( fail ..");
-		}
-	}
-
-	ROS_INFO("zero section go!");
-	goalReached = moveToGoal(pos1.x, pos1.y, 0.0, 1.0);
-	goalReached = moveToGoal(pos0.x, pos0.y, pos0.z, pos0.w);
-	if (goalReached){
-		ROS_INFO("success!!!");
-	}
-	else{
-		ROS_INFO("fail ..");
-	}
-
-	mode = UIMODE;
-//	ros::Publisher mode_pub = n.advertise<std_msgs::Int32>("uimode", 1000);
-
-	std_msgs::Int32 msg;
-	msg.data = UIMODE;
-	mode_pub.publish(msg);
-	ROS_INFO("mode_publish send !");
-
-}
-
 
 int main(int argc, char** argv){
 	ros::init(argc, argv, "map_navigation_node");
 	ros::NodeHandle n;
-	ros::Rate rate(5);
+//	sound_play::SoundClient sc;
+	ros::spinOnce();
+//	path_to_sounds = "/home/ros/catkin_ws/src/gaitech_edu/src/sounds/";
+	//sc.playWave(path_to_sounds+"short_buzzer.wav");
+	//tell the action client that we want to spin a thread by default
 
-        mode_pub = n.advertise<std_msgs::Int32>("uimode", 1000);
+	char choice = 'q';
+	do{
+		choice =choose();
+		if (choice == '0'){
+			goalReached = moveToGoal(pos0.x, pos0.y, pos0.z, pos0.w);
+		}else if (choice == '1'){
+			goalReached = moveToGoal(pos1.x, pos1.y, pos1.z, pos1.w);
+		}else if (choice == '2'){
+			goalReached = moveToGoal(pos2.x, pos2.y, pos2.z, pos2.w);
+		}else if (choice == '3'){
+			goalReached = moveToGoal(pos3.x, pos3.y, pos3.z, pos3.w);
+		}else if (choice == '4'){
+                        goalReached = moveToGoal(pos4.x, pos4.y, pos4.z, pos4.w);
+                }
 
-	ros::Subscriber autosub = n.subscribe("listorder", 1000, autoCallback);
-	ros::spin();
+		if (choice!='q'){
+			if (goalReached){
+				ROS_INFO("Congratulations!");
+				ros::spinOnce();
+//				sc.playWave(path_to_sounds+"ship_bell.wav");
+				ros::spinOnce();
 
+			}else{
+				ROS_INFO("Hard Luck!");
+//				sc.playWave(path_to_sounds+"short_buzzer.wav");
+			}
+		}
+	}while(choice !='q');
+	return 0;
 }
-
 
 bool moveToGoal(double xGoal, double yGoal, double zGoal, double wGoal){
 
@@ -160,3 +106,21 @@ bool moveToGoal(double xGoal, double yGoal, double zGoal, double wGoal){
 
 }
 
+char choose(){
+	char choice='q';
+	std::cout<<"|-------------------------------|"<<std::endl;
+	std::cout<<"|PRESSE A KEY:"<<std::endl;
+	std::cout<<"|'0': Start "<<std::endl;
+	std::cout<<"|'1': Snack "<<std::endl;
+	std::cout<<"|'2': Ramyun "<<std::endl;
+	std::cout<<"|'3': Coke "<<std::endl;
+        std::cout<<"|'4': Bread "<<std::endl;
+	std::cout<<"|'q': Quit "<<std::endl;
+	std::cout<<"|-------------------------------|"<<std::endl;
+	std::cout<<"|WHERE TO GO?";
+	std::cin>>choice;
+
+	return choice;
+
+
+}

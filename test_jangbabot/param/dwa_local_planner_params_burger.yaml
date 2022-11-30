@@ -1,18 +1,24 @@
 DWAPlannerROS:
 
 # Robot Configuration Parameters
-  max_vel_x: 0.22
-  min_vel_x: -0.22
+  max_vel_x: 0.26
+  min_vel_x: -0.26
+#  max_vel_x: 0.22
+#  min_vel_x: -0.22
 
   max_vel_y: 0.0
   min_vel_y: 0.0
 
 # The velocity when robot is moving in a straight line
   max_vel_trans:  0.22
+#  max_vel_trans:  0.26
+
   min_vel_trans:  0.11
 
-  max_vel_theta: 2.75
-  min_vel_theta: 1.37
+#  max_vel_theta: 2.75
+#  min_vel_theta: 1.37
+  max_vel_theta: 2.85
+  min_vel_theta: 1.50
 
   acc_lim_x: 2.5
   acc_lim_y: 0.0
@@ -25,8 +31,8 @@ DWAPlannerROS:
 
 # Forward Simulation Parameters
 # 작을수록 빠른 회전 허용하여 좁은 영역 통과
-  sim_time: 1.5
-#  sim_time: 1.0
+#  sim_time: 1.5
+  sim_time: 0.5
   vx_samples: 20
   vy_samples: 0
   vth_samples: 40
