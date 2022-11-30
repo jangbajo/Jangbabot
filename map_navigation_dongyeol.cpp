@@ -101,7 +101,7 @@ void startAuto(int num, char* orderlist){
 		if(section == '1'){
 			goalReached = moveToGoal(pos1.x, pos1.y, pos1.z, pos1.w);
 			//---------------------------------------//
-			rate.sleep()
+			rate.sleep();
 			ros::Subscriber detectionsub = n.subscribe("detection", 1000, detectionCallback);
 			ros::spinOnce();
 			//--------------------------------------//
@@ -109,7 +109,7 @@ void startAuto(int num, char* orderlist){
 		else if (section == '2'){
 			goalReached = moveToGoal(pos2.x, pos2.y, pos2.z, pos2.w);
 			//-------------------------------------//
-			rate.sleep()
+			rate.sleep();
 			ros::Subscriber detectionsub = n.subscribe("detection", 1000, detectionCallback);
 			ros::spinOnce();
 			//---------------------------------------//
@@ -117,7 +117,7 @@ void startAuto(int num, char* orderlist){
 		else if (section == '3'){
 			goalReached = moveToGoal(pos3.x, pos3.y, pos3.z, pos3.w);
 			//---------------------------------------//
-			rate.sleep()
+			rate.sleep();
 			ros::Subscriber detectionsub = n.subscribe("detection", 1000, detectionCallback);
 			ros::spinOnce();
 			//---------------------------------------//
@@ -125,7 +125,7 @@ void startAuto(int num, char* orderlist){
 		else if (section == '4'){
 			goalReached = moveToGoal(pos4.x, pos4.y, pos4.z, pos4.w);
 			//--------------------------------------//
-			rate.sleep()
+			rate.sleep();
 			ros::Subscriber detectionsub = n.subscribe("detection", 1000, detectionCallback);
 			ros::spinOnce();
 			//-----------------------------------------//
