@@ -1,0 +1,17 @@
+    rospy.init_node('ui_publisher')
+    pub = rospy.Publisher('listorder',Int32, queue_size=10)
+    rate = rospy.Rate(2)
+
+import rospy
+from std_msgs.msg import Int32
+
+rospy.init_node('detection_sub')
+
+
+
+def callback(msg):
+	print("detection clear : {}".format(msg.data))
+
+sub = rospy.Subscriber("HIGHWAY",Int32,callback)
+
+rospy.spin()
