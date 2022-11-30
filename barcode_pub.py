@@ -5,7 +5,7 @@ import pyzbar.pyzbar as pyzbar
 from std_msgs.msg import Int32MultiArray,Int32
 
 rospy.init_node('detection_pub')
-pub = rospy.Publisher('HIGHWAY',Int32,queue_size=10)
+pub = rospy.Publisher('detection',Int32,queue_size=10)
 
 barcode_number = [1,2,3,4]
 num=[0,0,0,0]

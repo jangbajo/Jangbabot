@@ -10,6 +10,6 @@ rospy.init_node('detection_sub')
 def callback(msg):
 	print("detection clear : {}".format(msg.data))
 
-sub = rospy.Subscriber("HIGHWAY",Int32,callback)
+sub = rospy.Subscriber("detection",Int32,callback)
 
 rospy.spin()
