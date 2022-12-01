@@ -31,11 +31,12 @@ struct Pos{
 	double w;
 };
 
-struct Pos pos0 = {1.88, -1.73, -0.50, 0.86};
-struct Pos pos1 = {2.83, -3.23, -0.50, 0.86};
-struct Pos pos2 = {3.87, -2.67, 0.18, 0.98};
-struct Pos pos3 = {3.09, -1.95, -0.96, 0.26};
-struct Pos pos4 = {3.28, -1.27, 0.29, 0.95};
+struct Pos pos0 = {1.88, -1.73, -0.5, 0.8};
+//struct Pos pos1 = {2.83, -3.23, -0.50, 0.86};
+struct Pos pos1 = {3.01, -3.16, -0.5, 0.8};
+struct Pos pos2 = {3.87, -2.67, 0.1, 0.9};
+struct Pos pos3 = {3.09, -1.95, -0.9, 0.2};
+struct Pos pos4 = {3.28, -1.27, 0.2, 0.9};
 
 bool goalReached = false;
 /*
